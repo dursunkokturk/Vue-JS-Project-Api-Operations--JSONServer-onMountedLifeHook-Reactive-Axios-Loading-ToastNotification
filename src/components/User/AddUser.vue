@@ -22,26 +22,10 @@
 </template>
 
 <script setup>
-
-    /* reactive Kullanma Amaci 
-        Obje Icindeki HTML Elementi Icinde 
-        Data Yazdirma Islemi Icin 
-        Degisken Adindan Sonra Direkt En Sondaki Attribute Kullanilarak 
-        Yazdirma Islemi Yapilabilir */
-    /* reactive Kullanildiginda 
-        Obje Icindeki Deger Sonradan Degistirilemez */
-    /* ref Kullanma Amaci 
-        Obje Icindeki HTML Elementi Icinde 
-        Data Yazdirma Isleminin Anlik Olarak Yapilmasini Saglar */
     import { reactive,ref } from 'vue';
     import Axios from 'axios';
-
-    /* User.vue Dosyasinda Hata Olursa 
-        Mesajla Bildirilmesi Icin Gereken Paketi Kullaniyoruz */
     import { useToast } from 'vue-toast-notification';
 
-    /* Eklenen Data lari Kaydetme Asamasinda Gorunecek Animasyonu 
-        Ilk Asamada Kapali Tutuyoruz */
     const loading = ref(false);
 
     const user = reactive({
@@ -50,9 +34,6 @@
     })
 
     const submitForm = () => {
-
-        /* Ekleme Butonuna Tiklandiginda 
-        Animasyonun Gorunmesini Sagliyoruz */
         loading.value = true;
 
         Axios({
@@ -61,16 +42,12 @@
             data:user
         })
         .then(()=>{
-            /* Islem Basarili Olursa Verilecek Mesaj */
             $toast.success('Kullanıcı Kaydı Başarılı!');
         })
         .cathch(()=>{
-            /* Islem Basarisiz Olursa Verilecek Mesaj */
             $toast.error('Kullanıcı Kaydı Başarısız!');
         })
         .finally(()=>{
-            /* Ekleme Islemi Bittiginde 
-                Animasyonun Gorunmesini Durduruyoruz */
             loading.value = false;
         })
     }
